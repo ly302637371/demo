@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
+  <display-name>boostor_selfedu</display-name>
+
+  <!-- 上下文参数（第一启动），指定spring配置文件位置  -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-context.xml,classpath:spring.xml,classpath:spring-mybatis.xml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>liyuan_demo</param-value>
+  </context-param>
+
+  <!-- spring监听器（第二启动），监听springMVC环境 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 监听用户当前在线人数 -->
+  <!--<listener>
+      <listener-class>com.liyuan.interceptor.MySessionListener</listener-class>
+  </listener>-->
+  <filter>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSessionRepositoryFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- springMVC编码拦截器（第三启动），springMVC内置的编码拦截器 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!-- springMvc前置总控制器（第四启动），在分发其它的控制器前都要经过这个总控制器 -->
+  <servlet>
+    <description>spring-mvc-servlet</description>
+    <servlet-name>spring-servlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>spring-servlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>initWeb</servlet-name>
+    <servlet-class>com.liyuan.interceptor.InitServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  <!--延迟加载的数据能在view层使用-->
+  <filter>
+    <filter-name>openSessionInViewFilter</filter-name>
+    <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+    <init-param>
+      <param-name>singleSession</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>openSessionInViewFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!--openSessionInViewFilter 垃圾回收-->
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+
+  <!--获取当前请求SESSION对象 开始 -->
+  <filter>
+    <filter-name>ContentFilter</filter-name>
+    <filter-class>com.liyuan.session.GetContentFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ContentFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- 获取当前请求SESSION对象 结束 -->
+
+  <!--跨域 开始-->
+  <filter>
+    <filter-name>cors</filter-name>
+    <filter-class>com.liyuan.session.CORSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>cors</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!--跨域 结束-->
+
+  <!-- log4j配置文件位置 -->
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:log4j.xml</param-value>
+  </context-param>
+  <!-- 利用spring来使用log4j -->
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+
+  <!--session超时时间30分钟-->
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
+  <!--tomcat默认首页-->
+  <welcome-file-list>
+    <welcome-file>/index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

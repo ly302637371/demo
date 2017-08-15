@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <!--   Access实现数据导入时转换     -->
+    <config id="student">
+        <column source="XS_BM" target="examCode" type="string" bizDictKey=""/>
+        <column source="KAOC_BM" target="dataBatch" type="string" bizDictKey=""/>
+        <column source="XB_BM" target="sex" type="int" bizDictKey=""/>
+        <column source="MZ_BM" target="nationality" type="int" bizDictKey=""/>
+        <column source="XS_CSRQ" target="birthday" type="date" bizDictKey=""/>
+        <column source="XS_XM" target="name" type="string" bizDictKey=""/>
+    </config>
+</root>

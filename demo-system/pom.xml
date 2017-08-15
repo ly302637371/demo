@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>multi-demo</artifactId>
+        <groupId>com.liyuan.project</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>demo-system</artifactId>
+    <packaging>war</packaging>
+    <name>snu-web-system Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+    <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>${project.groupId}</groupId>-->
+            <!--<artifactId>snu-service</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <db.url>jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&amp;characterEncoding=utf8</db.url>
+                <db.username>root</db.username>
+                <db.password></db.password>
+                <redis.host>127.0.0.1</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.pass></redis.pass>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <db.url>jdbc:mysql://127.0.0.1:3306/plantformdb?useUnicode=true&amp;characterEncoding=utf8</db.url>
+                <db.username>root</db.username>
+                <db.password>root</db.password>
+                <redis.host>127.0.0.1</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.pass></redis.pass>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <db.url>jdbc:mysql://127.0.0.1:35160/scnudb?useUnicode=true&amp;characterEncoding=utf8</db.url>
+                <db.username>root</db.username>
+                <db.password>root!123</db.password>
+                <redis.host>127.0.0.1</redis.host>
+                <redis.port>6379</redis.port>
+                <redis.pass></redis.pass>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <finalName>demo-system</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.9</version>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <!--每10秒扫描一次pom文件 -->
+                    <stopKey>stop</stopKey>
+                    <!--指定stop端口 -->
+                    <stopPort>9696</stopPort>
+                    <webAppConfig>
+                        <!--配置项目包所在路径 -->
+                        <!--<resourceBase>${basedir}/target/snu-web-system</resourceBase>-->
+                        <!--指定访问路径 -->
+                        <contextPath>/system</contextPath>
+                        <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
+                        <overrideDescriptor>src/main/resources/override-web.xml</overrideDescriptor>
+                    </webAppConfig>
+                    <contextHandlers>
+                        <!--配置第二个web项目 可以配置多个 -->
+                        <!--<contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">-->
+                        <!--<resourceBase>${project.parent.basedir}/snu-web-teachedu/target/snu-web-teachedu</resourceBase>-->
+                        <!--<contextPath>/teachedu</contextPath>-->
+                        <!--</contextHandler>-->
+                    </contextHandlers>
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <!--指定访问端口 -->
+                            <port>8888</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
