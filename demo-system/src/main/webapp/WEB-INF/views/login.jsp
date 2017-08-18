@@ -16,7 +16,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>继续教育学院综合管理系统-登陆</title>
+    <title>ssh-demo结构</title>
     <link rel=”icon” href="img/favicon.ico" mce_href="img/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="img/favicon.ico" mce_href="img/favicon.ico" type="image/x-icon">
     <%--<link href="css/login/login.css" rel="stylesheet">--%>

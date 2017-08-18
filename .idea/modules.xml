@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/demo-system/demo-system.iml" filepath="$PROJECT_DIR$/demo-system/demo-system.iml" />
-      <module fileurl="file://$PROJECT_DIR$/multi-demo.iml" filepath="$PROJECT_DIR$/multi-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multi-ssh.iml" filepath="$PROJECT_DIR$/multi-ssh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-system/ssh-system.iml" filepath="$PROJECT_DIR$/demo-system/ssh-system.iml" />
     </modules>
   </component>
 </project>

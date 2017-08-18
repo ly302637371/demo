@@ -4,7 +4,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="demo-system" />
+          <element id="module-output" name="ssh-system" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.8.RELEASE" />
@@ -155,7 +155,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/demo-system/target/demo-system/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="demo-system/web/Web" />
+      <element id="javaee-facet-resources" facet="ssh-system/web/Web" />
     </root>
   </artifact>
 </component>

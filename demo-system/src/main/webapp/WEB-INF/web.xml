@@ -8,7 +8,7 @@
   <!-- 上下文参数（第一启动），指定spring配置文件位置  -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring-context.xml,classpath:spring.xml,classpath:spring-mybatis.xml</param-value>
+    <param-value>classpath:spring-context.xml,classpath:spring.xml,classpath:spring-hibernate.xml</param-value>
   </context-param>
   <context-param>
     <param-name>webAppRootKey</param-name>
